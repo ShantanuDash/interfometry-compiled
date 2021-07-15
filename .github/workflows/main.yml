@@ -20,8 +20,9 @@ jobs:
         if: ${{ always() }}
         run: |
           sudo apt install python3-pip make
-          pip3 install git+https://github.com/astropy/pyregion.git
+          pip3 install astropy-helpers
           pip3 install pyerfa
+          pip3 install git+https://github.com/astropy/pyregion.git
           git clone https://github.com/griffinfoster/fundamentals_of_interferometry.git
           cd fundamentals_of_interferometry
           make
