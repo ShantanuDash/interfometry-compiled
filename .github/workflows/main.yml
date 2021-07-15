@@ -1,0 +1,34 @@
+name: Manually triggered workflow To Run Siesta
+on:
+  workflow_dispatch:
+
+jobs:
+#job1
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: setup git config
+        if: ${{ always() }}
+        run: |
+          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+      - name: compilation
+        if: ${{ always() }}
+        run: |
+          sudo apt install python3-pip make
+          git clone https://github.com/griffinfoster/fundamentals_of_interferometry.git
+          cd fundamentals_of_interferometry
+          make
+
+      - name: commit
+        if: ${{ always() }}
+        run: |
+          # Stage the file, commit and push
+          git add ${{ github.event.inputs.dir-name }}
+          git commit -m "bands updated automatically"
+          git push origin main
+      
