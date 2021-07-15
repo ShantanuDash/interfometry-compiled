@@ -20,6 +20,7 @@ jobs:
         if: ${{ always() }}
         run: |
           sudo apt install python3-pip make
+          pip3 install wheel
           pip3 install astropy-helpers
           pip3 install pyerfa
           pip3 install git+https://github.com/astropy/pyregion.git
@@ -28,7 +29,6 @@ jobs:
           make
 
       - name: commit
-        if: ${{ always() }}
         run: |
           # Stage the file, commit and push
           git add fundamentals_of_interferometry
