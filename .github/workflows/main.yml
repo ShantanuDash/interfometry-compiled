@@ -1,4 +1,4 @@
-name: Manually triggered workflow To Run Siesta
+name: Manually triggered workflow
 on:
   workflow_dispatch:
 
@@ -20,6 +20,8 @@ jobs:
         if: ${{ always() }}
         run: |
           sudo apt install python3-pip make
+          pip3 install git+https://github.com/astropy/pyregion.git
+          pip3 install pyerfa
           git clone https://github.com/griffinfoster/fundamentals_of_interferometry.git
           cd fundamentals_of_interferometry
           make
@@ -28,7 +30,7 @@ jobs:
         if: ${{ always() }}
         run: |
           # Stage the file, commit and push
-          git add ${{ github.event.inputs.dir-name }}
-          git commit -m "bands updated automatically"
+          git add fundamentals_of_interferometry
+          git commit -m "updated automatically"
           git push origin main
       
